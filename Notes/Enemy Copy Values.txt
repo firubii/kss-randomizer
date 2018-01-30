@@ -1,0 +1,30 @@
+Notes for Kirby Super Star and Hoshi no Kirby Super Deluxe.
+---
+Enemy Copy Ability Values.
+Each value is 1 byte.
+---
+Normal - 00
+Cutter - 01
+Beam - 02
+Yo-Yo - 03
+Ninja - 04
+Wing - 05
+Fighter - 06
+Jet - 07
+Sword - 08
+Fire - 09
+Stone - 0A
+Bomb - 0B
+Plasma - 0C
+Wheel - 0D
+Ice - 0E
+Mirror - 0F
+Copy - 10
+Suplex - 11
+Hammer - 12
+Parasol - 13
+Mike - 14
+Sleep - 15
+Paint - 16
+Cook - 17
+Crash - 18
