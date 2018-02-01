@@ -13,6 +13,18 @@ namespace KirbyRandomizer
 {
     public partial class MainForm : Form
     {
+        uint hitboxPhysStart = 0x081E17;
+        uint hitboxPhysEnd = 0x081F85;
+        uint hitboxProjStart = 0x08290E;
+        uint hitboxProjEnd = 0x082950;
+
+        List<int> elementNormal = new List<int>(){ 0x00, 0x01, 0x02, 0x03 };
+        List<int> elementSharp = new List<int>() { 0x04, 0x05, 0x06, 0x07 };
+        List<int> elementFire = new List<int>() { 0x08, 0x09, 0x0A, 0x0B };
+        List<int> elementElectric = new List<int>() { 0x0C, 0x0D, 0x0E, 0x0F };
+        List<int> elementIce = new List<int>() { 0x10, 0x11, 0x12, 0x13 };
+        List<int> elementNormal2 = new List<int>() { 0x14, 0x15, 0x16, 0x17 };
+
         uint enemyAbilityStart = 0x10426B;
         uint enemyAbilityEnd = 0x1042A5;
         uint miniBossAbilityStart = 0x1042AB;
@@ -36,7 +48,7 @@ namespace KirbyRandomizer
             OpenFileDialog readROM = new OpenFileDialog();
             readROM.DefaultExt = ".smc";
             readROM.AddExtension = true;
-            readROM.Filter = "SNES SMC ROM Files|*.smc|SNES SFC ROM Files|*.sfc|All Files|*";
+            readROM.Filter = "SNES SMC ROM Files|*.smc|All Files|*";
             if (readROM.ShowDialog() == DialogResult.OK)
             {
                 filePath.Text = readROM.FileName;
@@ -60,7 +72,8 @@ namespace KirbyRandomizer
             {
                 randElementsEach.Enabled = true;
                 randOneElement.Enabled = true;
-                if (!randEnemies.Checked)
+                randElementsHitboxes.Enabled = true;
+                if (!randKB.Checked && !randEnemies.Checked)
                 {
                     randomize.Enabled = true;
                 }
@@ -69,7 +82,8 @@ namespace KirbyRandomizer
             {
                 randElementsEach.Enabled = false;
                 randOneElement.Enabled = false;
-                if (!randEnemies.Checked)
+                randElementsHitboxes.Enabled = false;
+                if (!randKB.Checked && !randEnemies.Checked)
                 {
                     randomize.Enabled = false;
                 }
@@ -83,7 +97,7 @@ namespace KirbyRandomizer
                 includeMinorEnemies.Enabled = true;
                 randBossAbilities.Enabled = true;
                 randMiniBossAbilities.Enabled = true;
-                if (!randElements.Checked)
+                if (!randKB.Checked && !randElements.Checked)
                 {
                     randomize.Enabled = true;
                 }
@@ -93,7 +107,7 @@ namespace KirbyRandomizer
                 includeMinorEnemies.Enabled = false;
                 randBossAbilities.Enabled = false;
                 randMiniBossAbilities.Enabled = false;
-                if (!randElements.Checked)
+                if (!randKB.Checked && !randElements.Checked)
                 {
                     randomize.Enabled = false;
                 }
@@ -231,6 +245,210 @@ namespace KirbyRandomizer
                 }
             }
             return data;
+        }
+
+        public byte[] RandomizeHitboxElements(byte[] data)
+        {
+            //Seed stuff
+            if (randSeed.Text != "")
+            {
+                if (int.TryParse(randSeed.Text, out int result))
+                {
+                    rng = new Random(result);
+                }
+                else
+                {
+                    byte[] end = null;
+                    return end;
+                }
+            }
+            //Randomize each hitbox
+            if (randElementsHitboxes.Checked)
+            {
+                for (uint i = hitboxPhysStart; i <= hitboxPhysEnd; i++)
+                {
+                    int element = rng.Next(0, 5);
+                    //Rolling Normal
+                    if (element == 0)
+                    {
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Sharp
+                    if (element == 1)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Fire
+                    if (element == 2)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Electric
+                    if (element == 3)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Ice
+                    if (element == 4)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Normal2
+                    if (element == 4)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementIce.IndexOf(data[i])].ToString());
+                        }
+                    }
+                }
+            }
+            return data;
+        }
+
+        public byte[] RandomizeHitboxKB(byte[] data)
+        {
+            return data;
+        }
+
+        private void randKB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (randKB.Checked)
+            {
+                randKBAbility.Enabled = true;
+                randKBAttacks.Enabled = true;
+                randKBHitboxes.Enabled = true;
+                if (!randEnemies.Checked && !randElements.Checked)
+                {
+                    randomize.Enabled = true;
+                }
+            }
+            if (!randKB.Checked)
+            {
+                randKBAbility.Enabled = false;
+                randKBAttacks.Enabled = false;
+                randKBHitboxes.Enabled = false;
+                if (!randEnemies.Checked && !randElements.Checked)
+                {
+                    randomize.Enabled = false;
+                }
+            }
+        }
+
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            //Drag & Drop ROM files reading goes here soon(TM)
         }
     }
 }
