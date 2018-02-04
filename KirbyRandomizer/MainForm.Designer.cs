@@ -35,10 +35,16 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.overwriteROM = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.randKB = new System.Windows.Forms.CheckBox();
-            this.randOneElement = new System.Windows.Forms.RadioButton();
-            this.randElementsEach = new System.Windows.Forms.RadioButton();
+            this.randKBAttacks = new System.Windows.Forms.RadioButton();
+            this.randKBHitboxes = new System.Windows.Forms.RadioButton();
+            this.randKBAbility = new System.Windows.Forms.RadioButton();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.randElements = new System.Windows.Forms.CheckBox();
+            this.randElementsEach = new System.Windows.Forms.RadioButton();
+            this.randOneElement = new System.Windows.Forms.RadioButton();
+            this.randElementsHitboxes = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.randBossAbilities = new System.Windows.Forms.CheckBox();
             this.randMiniBossAbilities = new System.Windows.Forms.CheckBox();
@@ -49,18 +55,12 @@
             this.randomize = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.romRegion = new System.Windows.Forms.Label();
-            this.randElementsHitboxes = new System.Windows.Forms.RadioButton();
-            this.randKBHitboxes = new System.Windows.Forms.RadioButton();
-            this.randKBAbility = new System.Windows.Forms.RadioButton();
-            this.randKBAttacks = new System.Windows.Forms.RadioButton();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.randSettingsGroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // randSettingsGroup
@@ -126,16 +126,100 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Copy Ability Settings";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.randKB);
+            this.groupBox5.Controls.Add(this.randKBAttacks);
+            this.groupBox5.Controls.Add(this.randKBHitboxes);
+            this.groupBox5.Controls.Add(this.randKBAbility);
+            this.groupBox5.Location = new System.Drawing.Point(6, 137);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(314, 115);
+            this.groupBox5.TabIndex = 9;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Strength Settings";
+            // 
             // randKB
             // 
             this.randKB.AutoSize = true;
             this.randKB.Location = new System.Drawing.Point(6, 19);
             this.randKB.Name = "randKB";
-            this.randKB.Size = new System.Drawing.Size(194, 17);
+            this.randKB.Size = new System.Drawing.Size(179, 17);
             this.randKB.TabIndex = 3;
-            this.randKB.Text = "Randomize Copy Ability Knockback";
+            this.randKB.Text = "Randomize Copy Ability Strength";
             this.randKB.UseVisualStyleBackColor = true;
             this.randKB.CheckedChanged += new System.EventHandler(this.randKB_CheckedChanged);
+            // 
+            // randKBAttacks
+            // 
+            this.randKBAttacks.AutoSize = true;
+            this.randKBAttacks.Enabled = false;
+            this.randKBAttacks.Location = new System.Drawing.Point(26, 65);
+            this.randKBAttacks.Name = "randKBAttacks";
+            this.randKBAttacks.Size = new System.Drawing.Size(75, 17);
+            this.randKBAttacks.TabIndex = 5;
+            this.randKBAttacks.Text = "Per-Attack";
+            this.randKBAttacks.UseVisualStyleBackColor = true;
+            // 
+            // randKBHitboxes
+            // 
+            this.randKBHitboxes.AutoSize = true;
+            this.randKBHitboxes.Enabled = false;
+            this.randKBHitboxes.Location = new System.Drawing.Point(26, 89);
+            this.randKBHitboxes.Name = "randKBHitboxes";
+            this.randKBHitboxes.Size = new System.Drawing.Size(74, 17);
+            this.randKBHitboxes.TabIndex = 7;
+            this.randKBHitboxes.TabStop = true;
+            this.randKBHitboxes.Text = "Per-Hitbox";
+            this.randKBHitboxes.UseVisualStyleBackColor = true;
+            // 
+            // randKBAbility
+            // 
+            this.randKBAbility.AutoSize = true;
+            this.randKBAbility.Checked = true;
+            this.randKBAbility.Enabled = false;
+            this.randKBAbility.Location = new System.Drawing.Point(26, 42);
+            this.randKBAbility.Name = "randKBAbility";
+            this.randKBAbility.Size = new System.Drawing.Size(71, 17);
+            this.randKBAbility.TabIndex = 6;
+            this.randKBAbility.TabStop = true;
+            this.randKBAbility.Text = "Per-Ability";
+            this.randKBAbility.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.randElements);
+            this.groupBox4.Controls.Add(this.randElementsEach);
+            this.groupBox4.Controls.Add(this.randOneElement);
+            this.groupBox4.Controls.Add(this.randElementsHitboxes);
+            this.groupBox4.Location = new System.Drawing.Point(6, 19);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(314, 115);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Element Settings";
+            // 
+            // randElements
+            // 
+            this.randElements.AutoSize = true;
+            this.randElements.Location = new System.Drawing.Point(6, 19);
+            this.randElements.Name = "randElements";
+            this.randElements.Size = new System.Drawing.Size(182, 17);
+            this.randElements.TabIndex = 0;
+            this.randElements.Text = "Randomize Copy Ability Elements";
+            this.randElements.UseVisualStyleBackColor = true;
+            this.randElements.CheckedChanged += new System.EventHandler(this.randElements_CheckedChanged);
+            // 
+            // randElementsEach
+            // 
+            this.randElementsEach.AutoSize = true;
+            this.randElementsEach.Enabled = false;
+            this.randElementsEach.Location = new System.Drawing.Point(26, 65);
+            this.randElementsEach.Name = "randElementsEach";
+            this.randElementsEach.Size = new System.Drawing.Size(75, 17);
+            this.randElementsEach.TabIndex = 1;
+            this.randElementsEach.Text = "Per-Attack";
+            this.randElementsEach.UseVisualStyleBackColor = true;
             // 
             // randOneElement
             // 
@@ -150,27 +234,17 @@
             this.randOneElement.Text = "Per-Ability";
             this.randOneElement.UseVisualStyleBackColor = true;
             // 
-            // randElementsEach
+            // randElementsHitboxes
             // 
-            this.randElementsEach.AutoSize = true;
-            this.randElementsEach.Enabled = false;
-            this.randElementsEach.Location = new System.Drawing.Point(26, 65);
-            this.randElementsEach.Name = "randElementsEach";
-            this.randElementsEach.Size = new System.Drawing.Size(75, 17);
-            this.randElementsEach.TabIndex = 1;
-            this.randElementsEach.Text = "Per-Attack";
-            this.randElementsEach.UseVisualStyleBackColor = true;
-            // 
-            // randElements
-            // 
-            this.randElements.AutoSize = true;
-            this.randElements.Location = new System.Drawing.Point(6, 19);
-            this.randElements.Name = "randElements";
-            this.randElements.Size = new System.Drawing.Size(182, 17);
-            this.randElements.TabIndex = 0;
-            this.randElements.Text = "Randomize Copy Ability Elements";
-            this.randElements.UseVisualStyleBackColor = true;
-            this.randElements.CheckedChanged += new System.EventHandler(this.randElements_CheckedChanged);
+            this.randElementsHitboxes.AutoSize = true;
+            this.randElementsHitboxes.Enabled = false;
+            this.randElementsHitboxes.Location = new System.Drawing.Point(26, 89);
+            this.randElementsHitboxes.Name = "randElementsHitboxes";
+            this.randElementsHitboxes.Size = new System.Drawing.Size(74, 17);
+            this.randElementsHitboxes.TabIndex = 4;
+            this.randElementsHitboxes.TabStop = true;
+            this.randElementsHitboxes.Text = "Per-Hitbox";
+            this.randElementsHitboxes.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -245,7 +319,7 @@
             this.filePath.Location = new System.Drawing.Point(126, 13);
             this.filePath.Name = "filePath";
             this.filePath.ReadOnly = true;
-            this.filePath.Size = new System.Drawing.Size(178, 20);
+            this.filePath.Size = new System.Drawing.Size(225, 20);
             this.filePath.TabIndex = 2;
             // 
             // randomize
@@ -271,80 +345,6 @@
             this.romRegion.Text = "ROM Region: ";
             this.toolTip.SetToolTip(this.romRegion, "Region of the ROM, affects file reading");
             // 
-            // randElementsHitboxes
-            // 
-            this.randElementsHitboxes.AutoSize = true;
-            this.randElementsHitboxes.Enabled = false;
-            this.randElementsHitboxes.Location = new System.Drawing.Point(26, 89);
-            this.randElementsHitboxes.Name = "randElementsHitboxes";
-            this.randElementsHitboxes.Size = new System.Drawing.Size(74, 17);
-            this.randElementsHitboxes.TabIndex = 4;
-            this.randElementsHitboxes.TabStop = true;
-            this.randElementsHitboxes.Text = "Per-Hitbox";
-            this.randElementsHitboxes.UseVisualStyleBackColor = true;
-            // 
-            // randKBHitboxes
-            // 
-            this.randKBHitboxes.AutoSize = true;
-            this.randKBHitboxes.Enabled = false;
-            this.randKBHitboxes.Location = new System.Drawing.Point(26, 89);
-            this.randKBHitboxes.Name = "randKBHitboxes";
-            this.randKBHitboxes.Size = new System.Drawing.Size(74, 17);
-            this.randKBHitboxes.TabIndex = 7;
-            this.randKBHitboxes.TabStop = true;
-            this.randKBHitboxes.Text = "Per-Hitbox";
-            this.randKBHitboxes.UseVisualStyleBackColor = true;
-            // 
-            // randKBAbility
-            // 
-            this.randKBAbility.AutoSize = true;
-            this.randKBAbility.Checked = true;
-            this.randKBAbility.Enabled = false;
-            this.randKBAbility.Location = new System.Drawing.Point(26, 42);
-            this.randKBAbility.Name = "randKBAbility";
-            this.randKBAbility.Size = new System.Drawing.Size(71, 17);
-            this.randKBAbility.TabIndex = 6;
-            this.randKBAbility.TabStop = true;
-            this.randKBAbility.Text = "Per-Ability";
-            this.randKBAbility.UseVisualStyleBackColor = true;
-            // 
-            // randKBAttacks
-            // 
-            this.randKBAttacks.AutoSize = true;
-            this.randKBAttacks.Enabled = false;
-            this.randKBAttacks.Location = new System.Drawing.Point(26, 65);
-            this.randKBAttacks.Name = "randKBAttacks";
-            this.randKBAttacks.Size = new System.Drawing.Size(75, 17);
-            this.randKBAttacks.TabIndex = 5;
-            this.randKBAttacks.Text = "Per-Attack";
-            this.randKBAttacks.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.randElements);
-            this.groupBox4.Controls.Add(this.randElementsEach);
-            this.groupBox4.Controls.Add(this.randOneElement);
-            this.groupBox4.Controls.Add(this.randElementsHitboxes);
-            this.groupBox4.Location = new System.Drawing.Point(6, 19);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(314, 115);
-            this.groupBox4.TabIndex = 8;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Element Settings";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.randKB);
-            this.groupBox5.Controls.Add(this.randKBAttacks);
-            this.groupBox5.Controls.Add(this.randKBHitboxes);
-            this.groupBox5.Controls.Add(this.randKBAbility);
-            this.groupBox5.Location = new System.Drawing.Point(6, 137);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(314, 115);
-            this.groupBox5.TabIndex = 9;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Knockback Settings";
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -366,12 +366,12 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
