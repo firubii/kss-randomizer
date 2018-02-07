@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.randSettingsGroup = new System.Windows.Forms.GroupBox();
             this.randSeed = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -356,6 +357,7 @@
             this.Controls.Add(this.filePath);
             this.Controls.Add(this.loadROM);
             this.Controls.Add(this.randSettingsGroup);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
