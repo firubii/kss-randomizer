@@ -142,6 +142,19 @@ namespace KirbyRandomizer
                     return;
                 }
             }
+            //Randomize Strength
+            if (randKB.Checked)
+            {
+                if (RandomizeHitboxKB(ROMdata) != null)
+                {
+                    ROMdata = RandomizeHitboxKB(ROMdata);
+                }
+                else
+                {
+                    MessageBox.Show("Error: Seed was not in correct format.", "Kirby Super Star Randomizer", MessageBoxButtons.OK);
+                    return;
+                }
+            }
             //Overwrite ROM
             if (overwriteROM.Checked)
             {
@@ -278,12 +291,437 @@ namespace KirbyRandomizer
             //Randomize each Copy Ability
             if (randOneElement.Checked)
             {
-
+                Dictionary<string, int> abilityElements = new Dictionary<string, int>()
+                {
+                    {"normal", rng.Next(0, 5)},
+                    {"cutter", rng.Next(0, 5)},
+                    {"beam", rng.Next(0, 5)},
+                    {"yo-yo", rng.Next(0, 5)},
+                    {"ninja", rng.Next(0, 5)},
+                    {"wing", rng.Next(0, 5)},
+                    {"fighter", rng.Next(0, 5)},
+                    {"jet", rng.Next(0, 5)},
+                    {"sword", rng.Next(0, 5)},
+                    {"fire", rng.Next(0, 5)},
+                    {"stone", rng.Next(0, 5)},
+                    {"plasma", rng.Next(0, 5)},
+                    {"wheel", rng.Next(0, 5)},
+                    {"bomb", rng.Next(0, 5)},
+                    {"ice", rng.Next(0, 5)},
+                    {"mirror", rng.Next(0, 5)},
+                    {"suplex", rng.Next(0, 5)},
+                    {"hammer", rng.Next(0, 5)},
+                    {"parasol", rng.Next(0, 5)},
+                    {"mike", rng.Next(0, 5)},
+                    {"paint", rng.Next(0, 5)},
+                    {"crash", rng.Next(0, 5)}
+                };
+                int element = 0;
+                for (uint i = hitboxPhysStart; i <= hitboxProjEnd; i++)
+                {
+                    if (i == hitboxPhysEnd + 1)
+                    {
+                        i = hitboxProjStart;
+                    }
+                    if (i == 0x081E17 || i == 0x08290E)
+                    {
+                        element = abilityElements["normal"];
+                    }
+                    if (i == 0x081E1A || i == 0x08291B)
+                    {
+                        element = abilityElements["cutter"];
+                    }
+                    if (i == 0x081E2B || i == 0x08291E)
+                    {
+                        element = abilityElements["beam"];
+                    }
+                    if (i == 0x081E32 || i == 0x082921)
+                    {
+                        element = abilityElements["yo-yo"];
+                    }
+                    if (i == 0x081E3C || i == 0x082925)
+                    {
+                        element = abilityElements["ninja"];
+                    }
+                    if (i == 0x081E46 || i == 0x082928)
+                    {
+                        element = abilityElements["wing"];
+                    }
+                    if (i == 0x081E5A || i == 0x08292B)
+                    {
+                        element = abilityElements["fighter"];
+                    }
+                    if (i == 0x081E7D || i == 0x08292F)
+                    {
+                        element = abilityElements["jet"];
+                    }
+                    if (i == 0x081E88 || i == 0x082931)
+                    {
+                        element = abilityElements["sword"];
+                    }
+                    if (i == 0x081EB2 || i == 0x082933)
+                    {
+                        element = abilityElements["fire"];
+                    }
+                    if (i == 0x081EC9 || i == 0x082934)
+                    {
+                        element = abilityElements["stone"];
+                    }
+                    if (i == 0x081ECE || i == 0x082935)
+                    {
+                        element = abilityElements["plasma"];
+                    }
+                    if (i == 0x081ED1)
+                    {
+                        element = abilityElements["wheel"];
+                    }
+                    if (i == 0x08293B)
+                    {
+                        element = abilityElements["bomb"];
+                    }
+                    if (i == 0x081EE1 || i == 0x08293C)
+                    {
+                        element = abilityElements["ice"];
+                    }
+                    if (i == 0x081EF4 || i == 0x082944)
+                    {
+                        element = abilityElements["mirror"];
+                    }
+                    if (i == 0x081EFD)
+                    {
+                        element = abilityElements["suplex"];
+                    }
+                    if (i == 0x081F05 || i == 0x081F43)
+                    {
+                        element = abilityElements["hammer"];
+                    }
+                    if (i == 0x081F43 || i == 0x081F81)
+                    {
+                        element = abilityElements["parasol"];
+                    }
+                    if (i == 0x081F81)
+                    {
+                        element = abilityElements["mike"];
+                    }
+                    if (i == 0x081F84)
+                    {
+                        element = abilityElements["paint"];
+                    }
+                    if (i == 0x081F85)
+                    {
+                        element = abilityElements["crash"];
+                    }
+                    //Rolling Normal
+                    if (element == 0)
+                    {
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Sharp
+                    if (element == 1)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Fire
+                    if (element == 2)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Electric
+                    if (element == 3)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Ice
+                    if (element == 4)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Normal2
+                    if (element == 5)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementIce.IndexOf(data[i])].ToString());
+                        }
+                    }
+                }
             }
             //Randomize each attack
             if (randElementsEach.Checked)
             {
-
+                int element = 0;
+                for (uint i = hitboxPhysStart; i <= hitboxProjEnd; i++)
+                {
+                    if (i == hitboxPhysEnd + 1)
+                    {
+                        i = hitboxProjStart;
+                    }
+                    //Physical Attacks
+                    if (i == 0x081E17 || i == 0x081E18 || i == 0x081E18 || i == 0x081E19 || i == 0x081E1A || i == 0x081E1E || i == 0x081E1F || i == 0x081E21 || i == 0x081E2B || i == 0x081E31 || i == 0x081E32 || i == 0x081E3A || i == 0x081E3C || i == 0x081E3E || i == 0x081E42 || i == 0x081E46 || i == 0x081E4E || i == 0x081E54 || i == 0x081E55 || i == 0x081E56 || i == 0x081E5A || i == 0x081E66 || i == 0x081E6A || i == 0x081E6C || i == 0x081E70 || i == 0x081E7D || i == 0x081E81 || i == 0x081E85 || i == 0x081E88 || i == 0x081E8C || i == 0x081E90 || i == 0x081E95 || i == 0x081E9F || i == 0x081EA7 || i == 0x081EAA || i == 0x081E99 || i == 0x081EAA || i == 0x081EB2 || i == 0x081EB3 || i == 0x081EC7 || i == 0x081EC8 || i == 0x081EC9 || i == 0x081ECA || i == 0x081ECB || i == 0x081ECE || i == 0x081ECF || i == 0x081ED0 || i == 0x081ED1 || i == 0x081EE1 || i == 0x081EE9 || i == 0x081EF1 || i == 0x081EF4 || i == 0x081EFC || i == 0x081EFD || i == 0x081EFE || i == 0x081F02 || i == 0x081F05 || i == 0x081F11 || i == 0x081F21 || i == 0x081F31 || i == 0x081F3D || i == 0x081F || i == 0x081F43 || i == 0x081F49 || i == 0x081F4E || i == 0x081F57 || i == 0x081F59 || i == 0x081F5D || i == 0x081F5E || i == 0x081F81 || i == 0x081F82 || i == 0x081F83 || i == 0x081F84 || i == 0x081F85)
+                    {
+                        element = rng.Next(0, 5);
+                    }
+                    //Projectiles
+                    if (i == 0x08290E || i == 0x082912 || i == 0x082914 || i == 0x082916 || i == 0x08291B || i == 0x08291D || i == 0x08291E || i == 0x082920 || i == 0x082921 || i == 0x082922 || i == 0x082924 || i == 0x082925 || i == 0x082926 || i == 0x082927 || i == 0x082928 || i == 0x08292A || i == 0x08292B || i == 0x08292C || i == 0x08292F || i == 0x082930 || i == 0x082931 || i == 0x082932 || i == 0x082933 || i == 0x082934 || i == 0x082935 || i == 0x082936 || i == 0x082937 || i == 0x082938 || i == 0x082939 || i == 0x08293B || i == 0x08293C || i == 0x082944 || i == 0x082947 || i == 0x082948 || i == 0x08294E || i == 0x082950)
+                    {
+                        element = rng.Next(0, 5);
+                    }
+                    //Rolling Normal
+                    if (element == 0)
+                    {
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Sharp
+                    if (element == 1)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementSharp[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Fire
+                    if (element == 2)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementFire[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Electric
+                    if (element == 3)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementIce.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementElectric[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Ice
+                    if (element == 4)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementNormal2.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementIce[elementNormal2.IndexOf(data[i])].ToString());
+                        }
+                    }
+                    //Rolling Normal2
+                    if (element == 5)
+                    {
+                        if (elementNormal.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementNormal.IndexOf(data[i])].ToString());
+                        }
+                        if (elementSharp.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementSharp.IndexOf(data[i])].ToString());
+                        }
+                        if (elementFire.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementFire.IndexOf(data[i])].ToString());
+                        }
+                        if (elementElectric.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementElectric.IndexOf(data[i])].ToString());
+                        }
+                        if (elementIce.Contains(data[i]))
+                        {
+                            data[i] = byte.Parse(elementNormal2[elementIce.IndexOf(data[i])].ToString());
+                        }
+                    }
+                }
             }
             //Randomize each hitbox
             if (randElementsHitboxes.Checked)
