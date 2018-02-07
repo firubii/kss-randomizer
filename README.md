@@ -10,3 +10,10 @@ A randomization tool for Kirby Super Star
 * Randomizing hitbox properties (damage, sfx, etc.)
 * Randomizing enemy, boss, and mid-boss attributes (HP, Damage, elemental resistance, etc.)
 * Randomizing the enemies in levels
+
+# Credits
+**FruitMage** - Programming
+
+**Reserved** - Research
+
+**TiniestTurtles** - Icon
