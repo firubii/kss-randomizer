@@ -1028,6 +1028,279 @@ namespace KirbyRandomizer
 
         public byte[] RandomizeHitboxKB(byte[] data)
         {
+            //Seed stuff
+            if (randSeed.Text != "")
+            {
+                if (int.TryParse(randSeed.Text, out int result))
+                {
+                    rng = new Random(result);
+                }
+                else
+                {
+                    byte[] end = null;
+                    return end;
+                }
+            }
+            //Randomize each Copy Ability
+            if (randKBAbility.Checked)
+            {
+                Dictionary<string, int> abilityKB = new Dictionary<string, int>()
+                {
+                    {"normal", rng.Next(0, 3)},
+                    {"cutter", rng.Next(0, 3)},
+                    {"beam", rng.Next(0, 3)},
+                    {"yo-yo", rng.Next(0, 3)},
+                    {"ninja", rng.Next(0, 3)},
+                    {"wing", rng.Next(0, 3)},
+                    {"fighter", rng.Next(0, 3)},
+                    {"jet", rng.Next(0, 3)},
+                    {"sword", rng.Next(0, 3)},
+                    {"fire", rng.Next(0, 3)},
+                    {"stone", rng.Next(0, 3)},
+                    {"plasma", rng.Next(0, 3)},
+                    {"wheel", rng.Next(0, 3)},
+                    {"bomb", rng.Next(0, 3)},
+                    {"ice", rng.Next(0, 3)},
+                    {"mirror", rng.Next(0, 3)},
+                    {"suplex", rng.Next(0, 3)},
+                    {"hammer", rng.Next(0, 3)},
+                    {"parasol", rng.Next(0, 3)},
+                    {"mike", rng.Next(0, 3)},
+                    {"paint", rng.Next(0, 3)},
+                    {"crash", rng.Next(0, 3)}
+                };
+                int kb = 0;
+                for (uint i = hitboxPhysStart; i <= hitboxProjEnd; i++)
+                {
+                    if (i == hitboxPhysEnd + 1)
+                    {
+                        i = hitboxProjStart;
+                    }
+                    if (i == 0x081E17 || i == 0x08290E)
+                    {
+                        kb = abilityKB["normal"];
+                    }
+                    if (i == 0x081E1A || i == 0x08291B)
+                    {
+                        kb = abilityKB["cutter"];
+                    }
+                    if (i == 0x081E2B || i == 0x08291E)
+                    {
+                        kb = abilityKB["beam"];
+                    }
+                    if (i == 0x081E32 || i == 0x082921)
+                    {
+                        kb = abilityKB["yo-yo"];
+                    }
+                    if (i == 0x081E3C || i == 0x082925)
+                    {
+                        kb = abilityKB["ninja"];
+                    }
+                    if (i == 0x081E46 || i == 0x082928)
+                    {
+                        kb = abilityKB["wing"];
+                    }
+                    if (i == 0x081E5A || i == 0x08292B)
+                    {
+                        kb = abilityKB["fighter"];
+                    }
+                    if (i == 0x081E7D || i == 0x08292F)
+                    {
+                        kb = abilityKB["jet"];
+                    }
+                    if (i == 0x081E88 || i == 0x082931)
+                    {
+                        kb = abilityKB["sword"];
+                    }
+                    if (i == 0x081EB2 || i == 0x082933)
+                    {
+                        kb = abilityKB["fire"];
+                    }
+                    if (i == 0x081EC9 || i == 0x082934)
+                    {
+                        kb = abilityKB["stone"];
+                    }
+                    if (i == 0x081ECE || i == 0x082935)
+                    {
+                        kb = abilityKB["plasma"];
+                    }
+                    if (i == 0x081ED1)
+                    {
+                        kb = abilityKB["wheel"];
+                    }
+                    if (i == 0x08293B)
+                    {
+                        kb = abilityKB["bomb"];
+                    }
+                    if (i == 0x081EE1 || i == 0x08293C)
+                    {
+                        kb = abilityKB["ice"];
+                    }
+                    if (i == 0x081EF4 || i == 0x082944)
+                    {
+                        kb = abilityKB["mirror"];
+                    }
+                    if (i == 0x081EFD)
+                    {
+                        kb = abilityKB["suplex"];
+                    }
+                    if (i == 0x081F05 || i == 0x081F43)
+                    {
+                        kb = abilityKB["hammer"];
+                    }
+                    if (i == 0x081F43 || i == 0x081F81)
+                    {
+                        kb = abilityKB["parasol"];
+                    }
+                    if (i == 0x081F81)
+                    {
+                        kb = abilityKB["mike"];
+                    }
+                    if (i == 0x081F84)
+                    {
+                        kb = abilityKB["paint"];
+                    }
+                    if (i == 0x081F85)
+                    {
+                        kb = abilityKB["crash"];
+                    }
+                    //Rolling stuff
+                    if (elementNormal.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementNormal[kb].ToString());
+                    }
+                    if (elementSharp.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementSharp[kb].ToString());
+                    }
+                    if (elementFire.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementFire[kb].ToString());
+                    }
+                    if (elementElectric.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementElectric[kb].ToString());
+                    }
+                    if (elementIce.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementIce[kb].ToString());
+                    }
+                    if (elementNormal2.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementNormal2[kb].ToString());
+                    }
+                }
+            }
+            //Randomize each attack
+            if (randKBAttacks.Checked)
+            {
+                int kb = 0;
+                for (uint i = hitboxPhysStart; i <= hitboxProjEnd; i++)
+                {
+                    if (i == hitboxPhysEnd + 1)
+                    {
+                        i = hitboxProjStart;
+                    }
+                    //Physical Attacks
+                    if (i == 0x081E17 || i == 0x081E18 || i == 0x081E18 || i == 0x081E19 || i == 0x081E1A || i == 0x081E1E || i == 0x081E1F || i == 0x081E21 || i == 0x081E2B || i == 0x081E31 || i == 0x081E32 || i == 0x081E3A || i == 0x081E3C || i == 0x081E3E || i == 0x081E42 || i == 0x081E46 || i == 0x081E4E || i == 0x081E54 || i == 0x081E55 || i == 0x081E56 || i == 0x081E5A || i == 0x081E66 || i == 0x081E6A || i == 0x081E6C || i == 0x081E70 || i == 0x081E7D || i == 0x081E81 || i == 0x081E85 || i == 0x081E88 || i == 0x081E8C || i == 0x081E90 || i == 0x081E95 || i == 0x081E9F || i == 0x081EA7 || i == 0x081EAA || i == 0x081E99 || i == 0x081EAA || i == 0x081EB2 || i == 0x081EB3 || i == 0x081EC7 || i == 0x081EC8 || i == 0x081EC9 || i == 0x081ECA || i == 0x081ECB || i == 0x081ECE || i == 0x081ECF || i == 0x081ED0 || i == 0x081ED1 || i == 0x081EE1 || i == 0x081EE9 || i == 0x081EF1 || i == 0x081EF4 || i == 0x081EFC || i == 0x081EFD || i == 0x081EFE || i == 0x081F02 || i == 0x081F05 || i == 0x081F11 || i == 0x081F21 || i == 0x081F31 || i == 0x081F3D || i == 0x081F || i == 0x081F43 || i == 0x081F49 || i == 0x081F4E || i == 0x081F57 || i == 0x081F59 || i == 0x081F5D || i == 0x081F5E || i == 0x081F81 || i == 0x081F82 || i == 0x081F83 || i == 0x081F84 || i == 0x081F85)
+                    {
+                        kb = rng.Next(0, 5);
+                    }
+                    //Projectiles
+                    if (i == 0x08290E || i == 0x082912 || i == 0x082914 || i == 0x082916 || i == 0x08291B || i == 0x08291D || i == 0x08291E || i == 0x082920 || i == 0x082921 || i == 0x082922 || i == 0x082924 || i == 0x082925 || i == 0x082926 || i == 0x082927 || i == 0x082928 || i == 0x08292A || i == 0x08292B || i == 0x08292C || i == 0x08292F || i == 0x082930 || i == 0x082931 || i == 0x082932 || i == 0x082933 || i == 0x082934 || i == 0x082935 || i == 0x082936 || i == 0x082937 || i == 0x082938 || i == 0x082939 || i == 0x08293B || i == 0x08293C || i == 0x082944 || i == 0x082947 || i == 0x082948 || i == 0x08294E || i == 0x082950)
+                    {
+                        kb = rng.Next(0, 5);
+                    }
+                    //Rolling stuff
+                    if (elementNormal.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementNormal[kb].ToString());
+                    }
+                    if (elementSharp.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementSharp[kb].ToString());
+                    }
+                    if (elementFire.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementFire[kb].ToString());
+                    }
+                    if (elementElectric.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementElectric[kb].ToString());
+                    }
+                    if (elementIce.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementIce[kb].ToString());
+                    }
+                    if (elementNormal2.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementNormal2[kb].ToString());
+                    }
+                }
+            }
+            //Randomize each hitbox
+            if (randKBHitboxes.Checked)
+            {
+                int kb = 0;
+                for (uint i = hitboxPhysStart; i <= hitboxPhysEnd; i++)
+                {
+                    kb = rng.Next(0, 3);
+                    //Rolling stuff
+                    if (elementNormal.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementNormal[kb].ToString());
+                    }
+                    if (elementSharp.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementSharp[kb].ToString());
+                    }
+                    if (elementFire.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementFire[kb].ToString());
+                    }
+                    if (elementElectric.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementElectric[kb].ToString());
+                    }
+                    if (elementIce.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementIce[kb].ToString());
+                    }
+                    if (elementNormal2.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementNormal2[kb].ToString());
+                    }
+                }
+                for (uint i = hitboxPhysStart; i <= hitboxPhysEnd; i++)
+                {
+                    kb = rng.Next(0, 3);
+                    //Rolling stuff
+                    if (elementNormal.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementNormal[kb].ToString());
+                    }
+                    if (elementSharp.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementSharp[kb].ToString());
+                    }
+                    if (elementFire.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementFire[kb].ToString());
+                    }
+                    if (elementElectric.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementElectric[kb].ToString());
+                    }
+                    if (elementIce.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementIce[kb].ToString());
+                    }
+                    if (elementNormal2.Contains(data[i]))
+                    {
+                        data[i] = byte.Parse(elementNormal2[kb].ToString());
+                    }
+                }
+            }
             return data;
         }
 
